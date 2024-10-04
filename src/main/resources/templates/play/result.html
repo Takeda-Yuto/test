@@ -1,10 +1,78 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<style>
+	@font-face {
+		font-family: 'PixelMplus';
+		src: url('/fonts/PixelMplus12-Bold.ttf') format('truetype'); /* フォントがある相対パス */
+	}
+	body{
+		font-family: 'PixelMplus',sans-serif;
+		text-align: center;
+		
+	}
+	p {
+	    margin: 0; /* デフォルトのマージンをゼロに */
+	    line-height: 1.2; /* 行間をデフォルトより狭く */
+	}
+	table{
+		margin: auto; /* テーブルを中央に配置 */
+		border-collapse: collapse; /* セルの境界を結合 */
+		width: 900px; /* テーブル全体の幅を固定 */
+		box-sizing: border-box;
+	}
+	td {
+	    border: 1px solid black; /* 境界線 */
+	    padding: 2px; /* パディング */
+	    text-align: center; /* セル内のテキストを中央に */
+	    width: calc(100% / 9); /* 各列の幅を均等に */
+	}
+	.input-number {
+	    width: 100%; /* 幅を指定 */
+	    margin: 0;  /* 周囲のマージンを指定 */
+		box-sizing: border-box;
+	}
+</style>
+<title>battle result</title>
 </head>
 <body>
-
+	<br>
+	<p><span th:if="${name}">名前の登録・</span>ステータスへの振り分け完了</p>
+	<br>
+	<p th:if="${name}">名前：<span th:text="${name}"></span></p>
+	<p>現在のステータス</p>
+	<table>
+		<thead>
+			<tr>
+				<td>最大HP</td>
+				<td>最大MP</td>
+				<td>力</td>
+				<td>魔力</td>
+				<td>技</td>
+				<td>速さ</th>
+				<td>守備</td>
+				<td>魔防</td>
+				<td>幸運</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td th:text="${player.mhp}"></td>
+				<td th:text="${player.mmp}"></td>
+				<td th:text="${player.str}"></td>
+				<td th:text="${player.inte}"></td>
+				<td th:text="${player.skl}"></td>
+				<td th:text="${player.agi}"></td>
+				<td th:text="${player.def}"></td>
+				<td th:text="${player.mdf}"></td>
+				<td th:text="${player.luck}"></td>
+			</tr>
+		</tbody>
+	</table>
+	<br>
+	<form th:action="@{/play/battle}">
+		<button type="submit">戦闘へ</button>
+	</form>
 </body>
 </html>

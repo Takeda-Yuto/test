@@ -1,10 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<style>
+	@font-face {
+		font-family: 'PixelMplus';
+		src: url('/fonts/PixelMplus12-Bold.ttf') format('truetype'); /* フォントがある相対パス */
+	}
+	body{
+		font-family: 'PixelMplus',sans-serif;
+		text-align: center;
+		line-height: 1;
+		margin:0;
+		padding: 0;
+	}
+	p {
+	    margin: 0; /* デフォルトのマージンをゼロに */
+	    line-height: 1.2; /* 行間をデフォルトより狭く */
+	}
+	table{
+		margin: auto; /* テーブルを中央に配置 */
+		border-collapse: collapse; /* セルの境界を結合 */
+		width: 350px; /* テーブル全体の幅を固定 */
+	}
+	td {
+	    border: 1px solid black; /* 境界線 */
+	    padding: 2px; /* パディング */
+	    text-align: center; /* セル内のテキストを中央に */
+	    width: calc(100% / 7); /* 各列の幅を均等に */
+	}
+	.battlewindow{
+		
+		display: flex; /* 子要素を横に並べる */
+		justify-content: space-between; /* 子要素の間隔を均等に */
+	}
+	.playerbox{
+		border: 1px solid black; /* ボックスの境界線 */
+		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* 影をつける */
+		width: 30%; /*幅*/
+		display: grid; /* グリッドレイアウトを使用 */
+		gap: 5px; /* 列の間隔を設定 */
+		margin-left: 20px;/*左端の間*/
+		margin-right: 10px;/*右端の間*/
+		padding-top: 5px;
+	}
+	.comandbox{
+		display: flex;/*横並び*/
+		justify-content: center;/*中央ぞろえ*/
+	}
+	.comandbox form {
+	    margin: 0 5px; /* 左右に10pxのマージンを追加 */
+	}
+	.comandbox form:last-child {
+	    margin-left: 20px; /* 最後のフォーム（降参ボタン）に右側のマージンを追加 */
+	}
+	.battlelog{
+		border: 1px solid black; /* ボックスの境界線 */
+		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* 影をつける */
+		width: 70%;/*幅*/
+		display: grid;
+		gap: 5px;
+		padding-left: 30px;
+		padding-top: 5px;
+		margin-right: 20px;
+		text-align: left;
+	}
+</style>
+<title>title</title>
 </head>
 <body>
+	<h2>戦うだけ</h2>
+	<br>
+	<a th:href="@{/play/start}">初めから</a>
+	<p>続きから</p>
+	<a>終了</a>
+	
 
 </body>
 </html>

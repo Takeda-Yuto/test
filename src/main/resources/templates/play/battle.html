@@ -1,10 +1,161 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Battle</title>
+<style>
+	@font-face {
+		font-family: 'PixelMplus';
+		src: url('/fonts/PixelMplus12-Bold.ttf') format('truetype'); /* フォントがある相対パス */
+	}
+	body{
+		font-family: 'PixelMplus',sans-serif;
+		text-align: center;
+		line-height: 1;
+		margin:0;
+		padding: 0;
+	}
+	p {
+	    margin: 0; /* デフォルトのマージンをゼロに */
+	    line-height: 1.2; /* 行間をデフォルトより狭く */
+	}
+	table{
+		margin: auto; /* テーブルを中央に配置 */
+		border-collapse: collapse; /* セルの境界を結合 */
+		width: 350px; /* テーブル全体の幅を固定 */
+	}
+	td {
+	    border: 1px solid black; /* 境界線 */
+	    padding: 2px; /* パディング */
+	    text-align: center; /* セル内のテキストを中央に */
+	    width: calc(100% / 7); /* 各列の幅を均等に */
+	}
+	.battlewindow{
+		
+		display: flex; /* 子要素を横に並べる */
+		justify-content: space-between; /* 子要素の間隔を均等に */
+	}
+	.playerbox{
+		border: 1px solid black; /* ボックスの境界線 */
+		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* 影をつける */
+		width: 30%; /*幅*/
+		display: grid; /* グリッドレイアウトを使用 */
+		gap: 5px; /* 列の間隔を設定 */
+		margin-left: 20px;/*左端の間*/
+		margin-right: 10px;/*右端の間*/
+		padding-top: 5px;
+	}
+	.comandbox{
+		display: flex;/*横並び*/
+		justify-content: center;/*中央ぞろえ*/
+	}
+	.comandbox form {
+	    margin: 0 5px; /* 左右に10pxのマージンを追加 */
+	}
+	.comandbox form:last-child {
+	    margin-left: 20px; /* 最後のフォーム（降参ボタン）に右側のマージンを追加 */
+	}
+	.battlelog{
+		border: 1px solid black; /* ボックスの境界線 */
+		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* 影をつける */
+		width: 70%;/*幅*/
+		display: grid;
+		gap: 5px;
+		padding-left: 30px;
+		padding-top: 5px;
+		margin-right: 20px;
+		text-align: left;
+	}
+</style>
 </head>
 <body>
+	<!-- ターン数表示 -->
+	<h4 style="text-align: left; margin-left: 20px; margin-top: 5px;"><span th:text="${battleForm.turn}">0</span>ターン目</h4>
+	<p style="margin-top: 5px;"></p> <!-- 行間調整用 -->
+	<!-- 敵キャラ -->
+	<div>
+		<p th:text="${enemy.name}">敵の名前</p>
+		<img th:src="@{/{image}(image = ${battleForm.eimage})}" style="width: 300px; height: auto;">
+		<p>HP:<span th:text="${enemy.hp}">666</span>/<span th:text="${enemy.mhp}">666</span></p>
+	</div>
+	<p style="margin-top: 5px;"></p> <!-- 行間調整用 -->
+	
+	<!-- バトルウィンドウ -->
+	<div class="battlewindow">
+	<!-- 自キャラ -->
+	<div class="playerbox">
+		<div>
+			<p>名前:<span th:text="${player.name}">john</span></p>
+			<p>HP:<span th:text="${player.hp}">666</span>/<span th:text="${player.mhp}">666</span>&nbsp;&nbsp;&nbsp;
+				MP:<span th:text="${player.mp}">255</span>/<span th:text="${player.mmp}">255</span></p>
+		</div>
+		<!-- ステータス欄 -->
+		<table>
+				<tr>
+					<td>力</td>
+					<td>魔力</td>
+					<td>技</td>
+					<td>速さ</th>
+					<td>守備</td>
+					<td>魔防</td>
+					<td>幸運</td>
+				</tr>
+			<tbody>
+				<tr>
+					<td th:text="${player.str}"></td>
+					<td th:text="${player.inte}"></td>
+					<td th:text="${player.skl}"></td>
+					<td th:text="${player.agi}"></td>
+					<td th:text="${player.def}"></td>
+					<td th:text="${player.mdf}"></td>
+					<td th:text="${player.luck}"></td>
+				</tr>
+			</tbody>
+		</table>
+		<br>
+			<!-- コマンド -->
+		<div class="comandbox">
+			<form th:unless="${enemy.hp <= 0 or player.hp <= 0 or battleForm.comand == 3}"	th:action="@{/play/battle/attack}" th:object="${battleForm}" method="get">
+				<input type="hidden" th:field="*{turn}" th:value="${battleForm.turn}">
+				<input type="hidden" th:field="*{eimage}" th:value="${battleForm.eimage}">
+				<button type="submit">攻撃</button>
+			</form>
+			<form th:unless="${enemy.hp <= 0 or player.hp <= 0 or battleForm.comand == 3}" th:action="@{/play/battle/magic}" th:object="${battleForm}" method="get">
+				<input type="hidden" th:field="*{turn}" th:value="${battleForm.turn}">
+				<input type="hidden" th:field="*{eimage}" th:value="${battleForm.eimage}">
+				<button type="submit">魔法</button>
+			</form>
+			<form th:unless="${enemy.hp <= 0 or player.hp <= 0 or battleForm.comand == 3}" th:action="@{/play/battle/guard}" th:object="${battleForm}" method="get">
+				<input type="hidden" th:field="*{turn}" th:value="${battleForm.turn}">
+				<input type="hidden" th:field="*{eimage}" th:value="${battleForm.eimage}">
+				<button type="submit">防御</button>
+			</form>
+			<form th:unless="${enemy.hp <= 0 or player.hp <= 0 or battleForm.comand == 3}" th:action="@{/play/battle/surrender}" th:object="${battleForm}" method="get">
+				<input type="hidden" th:field="*{turn}" th:value="${battleForm.turn}">
+				<input type="hidden" th:field="*{eimage}" th:value="${battleForm.eimage}">
+				<button type="submit" style="margin-right: 20px;">降参</button>
+			</form>
+			<form th:if="${enemy.hp <= 0}" th:action="@{/play/result}" method="get">
+				<button type="submit">リザルト画面へ</button>
+			</form>
+			<form th:if="${player.hp <= 0 or battleForm.comand == 3}" th:action="@{/title}" method="get">
+				<button type="submit">タイトルへ</button>
+			</form>
+		</div>
+		<br>
+	</div>
+	
+	<!-- バトルログ -->
+	<div class="battlelog">
+		<p th:text="${systemlog}">バトルログ</p>
+		<p th:text="${comandlog}">バトルログ</p>
+		<p th:text="${playerlog}">バトルログ</p>
+		<p th:text="${ecomandlog}">バトルログ</p>
+		<p th:text="${enemylog}">バトルログ</p>
+		<p th:text="${deathlog}">バトルログ</p>
+	</div>
+	</div>
 
 </body>
 </html>

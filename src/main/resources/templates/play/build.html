@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<style>
+	@font-face {
+			font-family: 'PixelMplus';
+			src: url('/fonts/PixelMplus12-Bold.ttf') format('truetype'); /* フォントがある相対パス */
+		}
+		body{
+			font-family: 'PixelMplus',sans-serif;
+			text-align: center;
+			
+		}
+		p {
+		    margin: 0; /* デフォルトのマージンをゼロに */
+		    line-height: 1.2; /* 行間をデフォルトより狭く */
+		}
+		table{
+			margin: auto; /* テーブルを中央に配置 */
+			border-collapse: collapse; /* セルの境界を結合 */
+			width: 900px; /* テーブル全体の幅を固定 */
+			box-sizing: border-box;
+		}
+		td {
+		    border: 1px solid black; /* 境界線 */
+		    padding: 2px; /* パディング */
+		    text-align: center; /* セル内のテキストを中央に */
+		    width: calc(100% / 9); /* 各列の幅を均等に */
+		}
+		.input-number {
+		    width: 100%; /* 幅を指定 */
+		    margin: 0;  /* 周囲のマージンを指定 */
+			box-sizing: border-box;
+		}
+		.info1{
+			width: 30%;
+		}
+		.info2{
+			width: 70%;
+			text-align: left;
+			padding-left: 10px;
+		}
+</style>
+<title>Status Build</title>
+</head>
+<body>
+	<p th:if="${win}"><span th:text="${player.name}"></span>の勝利</p>
+	<br>
+	<p th:if="${make}">キャラメイク</p>
+	
+	<p th:if="${message}" th:text="${message}" style="color: red;"></p>
+	
+	<form th:action="@{/play/making}" th:object="${unitForm}" method="get">
+		<input type="hidden" th:field="*{id}" value="0">
+		<p th:if="${make}">あなたの名前は？</p>
+		<p th:if="${noname}" th:text="${noname}" style="color: red;"></p>
+		<!-- デフォルト名を表示したかったけど、fieldの影響で出来なかったっぽい -->
+		<input th:if="${make}" type="text" th:field="*{name}">
+		<input th:if="${win}" type="hidden" th:field="*{name}">
+		<p>ポイントを割り振ってステータスを強化しよう</p>
+		<br>
+		<p>使用可能ポイント：<span th:text=${sp.sp}></span>ポイント</p>
+		<table>
+			<thead>
+				<tr>
+					<td>最大HP</td>
+					<td>最大MP</td>
+					<td>力</td>
+					<td>魔力</td>
+					<td>技</td>
+					<td>速さ</th>
+					<td>守備</td>
+					<td>魔防</td>
+					<td>幸運</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td th:text="${player.mhp}"></td>
+					<td th:text="${player.mmp}"></td>
+					<td th:text="${player.str}"></td>
+					<td th:text="${player.inte}"></td>
+					<td th:text="${player.skl}"></td>
+					<td th:text="${player.agi}"></td>
+					<td th:text="${player.def}"></td>
+					<td th:text="${player.mdf}"></td>
+					<td th:text="${player.luck}"></td>
+				</tr>
+				<tr>
+					<td>
+		<input type="number" class="input-number" th:field="*{mhp}" value="0" min="0" th:attr="max=${sp}" step="1">
+					</td>
+		<input type="hidden" th:field="*{hp}" value="0">
+					<td>
+		<input type="number" class="input-number" th:field="*{mmp}" value="0" min="0" th:attr="max=${sp}" step="1">
+					</td>
+		<input type="hidden" th:field="*{mp}" value="0">
+					<td>
+		<input type="number" class="input-number" th:field="*{str}" value="0" min="0" th:attr="max=${sp}" step="1">
+					</td>
+					<td>
+		<input type="number" class="input-number" th:field="*{inte}" value="0" min="0" th:attr="max=${sp}" step="1">
+					</td>
+					<td>
+		<input type="number" class="input-number" th:field="*{skl}" value="0" min="0" th:attr="max=${sp}" step="1">
+					</td>
+					<td>
+		<input type="number" class="input-number" th:field="*{agi}" value="0" min="0" th:attr="max=${sp}" step="1">
+					</td>
+					<td>
+		<input type="number" class="input-number" th:field="*{def}" value="0" min="0" th:attr="max=${sp}" step="1">
+					</td>
+					<td>
+		<input type="number" class="input-number" th:field="*{mdf}" value="0" min="0" th:attr="max=${sp}" step="1">
+					</td>
+					<td>
+		<input type="number" class="input-number" th:field="*{luck}" value="0" min="0" th:attr="max=${sp}" step="1">
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div>
+		</div>
+		<br>
+		<button type="submit">設定完了</button>
+	</form>
+	<br>
+	<table>
+		<tr>
+			<td class="info1">最大HP</td>
+			<td class="info2">０になるとゲームオーバーになるHPの最大値。１ポイントで５上昇する</td>
+		</tr>
+		<tr>
+			<td>最大MP</td>
+			<td class="info2">魔法（消費MP２）で攻撃するために必要。１ポイントで２上昇する</td>
+		</tr>
+		<tr>
+			<td>力</td>
+			<td class="info2">攻撃で参照する値。１ポイントで１上昇する</td>
+		</tr>
+		<tr>
+			<td>魔力</td>
+			<td class="info2">魔法で参照する値。１ポイントで１上昇する</td>
+		</tr>
+		<tr>
+			<td>技</td>
+			<td class="info2">命中率に影響する値。１ポイントで１上昇する</td>
+		</tr>
+		<tr>
+			<td>速さ</td>
+			<td class="info2">回避率に影響する値。１ポイントで１上昇する</td>
+		</tr>
+		<tr>
+			<td>守備</td>
+			<td class="info2">攻撃で受けるダメージに影響する値。１ポイントで１上昇する</td>
+		</tr>
+		<tr>
+			<td>魔防</td>
+			<td class="info2">魔法で受けるダメージに影響する値。１ポイントで１上昇する</td>
+		</tr>
+		<tr>
+			<td>幸運</td>
+			<td class="info2">命中や回避に影響する値。１ポイントで１上昇する</td>
+		</tr>
+	</table>
+	
+	
+</body>
+</html>

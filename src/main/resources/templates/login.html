@@ -2,10 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<style>
+	body{
+		font-family: 'Press start 2p',cursive;
+		text-align: center;
+	}
+</style>
 <title>Please Login</title>
 </head>
 <body>
-	
-
+	<h2>Please Login</h2>
+	<!-- ゲストアカウント -->
+	<form th:action="" method="get" th:object="">
+		<input type="hidden" th:field="*{guest}">
+		<input type="hidden" th:field="*{guestpass}">
+		<p>
+			ゲストアカウントは
+			<a th:href="/play/battle">こちら</a>
+		</p>
+	</form>
 </body>
 </html>

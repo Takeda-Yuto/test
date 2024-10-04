@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+						 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.repository.UnitMapper">
+	<!-- 自キャラの取得 -->
+	<select id="selectMyUnit" resultType="com.example.entity.Unit">
+		select id,name,mhp,hp,mmp,mp,str,inte,skl,agi,def,mdf,luck from unit where id=0;
+	</select>
+	<!-- 敵キャラの取得 -->
+	<select id="selectEnemyUnit" resultType="com.example.entity.Unit">
+		select id,name,mhp,hp,mmp,mp,str,inte,skl,agi,def,mdf,luck from unit where id=#{id};
+	</select>
+	<!-- 自キャラの登録・更新 -->
+	<update id="updateMyUnit">
+		update unit set 
+			name=#{name},
+			mhp=#{mhp},
+			hp=#{hp},
+			mmp=#{mmp},
+			mp=#{mp},
+			str=#{str},
+			inte=#{inte},
+			skl=#{skl},
+			agi=#{agi},
+			def=#{def},
+			mdf=#{mdf},
+			luck=#{luck} 
+			where id=0;
+	</update>
+	<!-- 敵キャラの作成 -->
+	<insert id="createEnemyUnit">
+		insert into unit values(
+			#{id},
+			#{name},
+			#{mhp},
+			#{hp},
+			#{mmp},
+			#{mp},
+			#{str},
+			#{inte},
+			#{skl},
+			#{agi},
+			#{def},
+			#{mdf},
+			#{luck});
+	</insert>
+</mapper>
