@@ -24,9 +24,10 @@ public class BattleController {
 	private final BattleService battleService;
 	private final BattleSystem battleSystem;
 	
-	private Unit player;
-	private Unit enemy;
-	private Sp sp = new Sp();
+	private Unit player;//操作キャラ
+	private Unit enemy;//敵キャラ
+	private Sp sp = new Sp();//操作キャラが保持するステータスポイント
+	private int count = 0;
 	
 	//キャラメイク
 	@GetMapping("/start")
@@ -66,8 +67,13 @@ public class BattleController {
 //		System.out.println(unitForm.getMdf());
 //		System.out.println(unitForm.getLuck());
 //		System.out.println(this.sp.getSp());
+		
 		unitForm.upMhp();
 		unitForm.upMmp();
+		if(count%5 == 0) {
+			player.levelUp();
+			model.addAttribute("levelup","レベルアップ！");
+		}
 		//spを超える数値を設定したら
 		if(unitForm.getAllStatus() > sp.getSp()) {
 			model.addAttribute("message","ポイントを超えないように振り分けてください");
@@ -79,10 +85,8 @@ public class BattleController {
 		}
 		sp.setSp(sp.getSp() - unitForm.getAllStatus());
 		player.statusUp(unitForm);
-		if(unitForm.getName() != null) {
-			player.setName(unitForm.getName());
-			model.addAttribute("name",unitForm.getName());
-		}
+		player.setName(unitForm.getName());
+		model.addAttribute("name",unitForm.getName());
 		battleService.updateMyUnit(player);
 		model.addAttribute("player",player);
 		model.addAttribute("unitForm",unitForm);
@@ -93,7 +97,7 @@ public class BattleController {
 	@GetMapping("/battle")
 	public String showBattle(Model model) {
 		//ステータスから戦う敵の強さを選定
-		int id = player.getAllStatus()/5-5;
+		int id = player.getAllStatus()/10-4;
 		enemy = battleService.getEnemyUnit(id);
 		//データに存在しないidを参照した場合はそのidで敵作成
 		if(enemy == null) {
@@ -175,6 +179,7 @@ public class BattleController {
 		battleData.setComand(1);
 		battleData.setEcomand();
 		player.setGuard(false);
+		int mp = player.getMp();
 		battleSystem.comand(battleData.getComand(), player, enemy);
 		enemy.setGuard(false);
 		battleSystem.comand(battleData.getEcomand(), enemy, player);
@@ -183,7 +188,7 @@ public class BattleController {
 		model.addAttribute("enemy",enemy);
 		model.addAttribute("battleForm",battleData);
 		//魔法
-		if(player.getMp() < 0) {
+		if(mp == 0) {
 			model.addAttribute("comandlog",player.getName() +"の魔法！　しかし　MPが足りない！");
 		}else {
 			model.addAttribute("comandlog",player.getName() +"の魔法！");
@@ -305,6 +310,7 @@ public class BattleController {
 		model.addAttribute("sp",sp);
 		model.addAttribute("unitForm",unitForm);
 		model.addAttribute("win","勝利");
+		count++;
 		return "play/build";
 	}
 

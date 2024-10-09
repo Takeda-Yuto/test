@@ -44,4 +44,25 @@
 			#{mdf},
 			#{luck});
 	</insert>
+	<delete id="dropUnit">
+	DROP TABLE IF EXISTS unit;
+	</delete>
+	<update id="createUnit">
+	create table unit(id serial primary key,
+				 name varchar(255) not null,
+				 mhp int not null,
+				 hp int not null,
+				 mmp int not null,
+				 mp int not null,
+				 str int not null,
+				 inte int not null,
+				 skl int not null,
+				 agi int not null,
+				 def int not null,
+				 mdf int not null,
+				 luck int not null );
+	</update>
+	<insert id="resetMyUnit">
+	insert into unit values(0,'hero',50,50,18,18,4,2,6,6,4,3,6);
+	</insert>
 </mapper>

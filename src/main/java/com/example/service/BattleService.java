@@ -11,5 +11,6 @@ public interface BattleService {
 	void updateMyUnit(Unit unit);
 	//敵キャラの作成
 	void makeEnemyUnit(Unit unit);
-
+	//初期化処理
+	void resetUnit();
 }

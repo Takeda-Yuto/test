@@ -1,7 +1,9 @@
 package com.example.entity;
 
 
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 import com.example.form.UnitForm;
 
@@ -73,12 +75,53 @@ public class Unit {
 		setLuck(this.luck + uf.getLuck());
 	}
 	
+	public void levelUp() {
+		Random rand = new Random();
+		int count = 0;
+		Set<Integer> al = new HashSet<>();
+		while(count != 3) {
+			int a = rand.nextInt(9);
+			if(al.add(a)) {
+				switch(rand.nextInt(9)) {
+					case 0 ->{
+						mhp+=5;
+					}
+					case 1 ->{
+						mmp+=2;
+					}
+					case 2 ->{
+						str++;
+					}
+					case 3 ->{
+						inte++;
+					}
+					case 4 ->{
+						skl++;
+					}
+					case 5 ->{
+						agi++;
+					}
+					case 6 ->{
+						def++;
+					}
+					case 7 ->{
+						mdf++;
+					}
+					case 8 ->{
+						luck++;
+					}
+				}
+				count++;
+			}
+		}
+	}
+	
 	public static Unit randomStatus(int id) {
 		Random rand = new Random();
-		int mhp =5+id;
-		int mmp =id;
-		int str =id;
-		int inte =id;
+		int mhp =5+rand.nextInt(1,id+1);
+		int mmp =rand.nextInt(1,id+1);
+		int str =rand.nextInt(1,id+1);
+		int inte =rand.nextInt(1,id+1);
 		int skl =0;
 		int agi =0;
 		int def =0;

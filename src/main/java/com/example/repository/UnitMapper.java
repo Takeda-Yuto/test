@@ -14,4 +14,10 @@ public interface UnitMapper {
 	void updateMyUnit(Unit unit);
 	//敵情報作成
 	void createEnemyUnit(Unit unit);
+	//初期化処理１
+	void dropUnit();
+	//初期化処理２
+	void createUnit();
+	//初期化処理３
+	void resetMyUnit();
 }

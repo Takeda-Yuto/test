@@ -48,6 +48,7 @@
 	<p th:if="${win}"><span th:text="${player.name}"></span>の勝利</p>
 	<br>
 	<p th:if="${make}">キャラメイク</p>
+	<p th:if="${levelup}" th:text="${levelup}"></p>
 	
 	<p th:if="${message}" th:text="${message}" style="color: red;"></p>
 	

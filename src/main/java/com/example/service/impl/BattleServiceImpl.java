@@ -40,6 +40,14 @@ public class BattleServiceImpl implements BattleService{
 		// TODO 自動生成されたメソッド・スタブ
 		unitMapper.createEnemyUnit(unit);
 	}
+
+	@Override
+	public void resetUnit() {
+		// TODO 自動生成されたメソッド・スタブ
+		unitMapper.dropUnit();
+		unitMapper.createUnit();
+		unitMapper.resetMyUnit();
+	}
 	
 	
 
