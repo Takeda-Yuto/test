@@ -2,8 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 						 "http://mybatis.org/dtd/mybatis-mapper-3.dtd">
 <mapper namespace="com.example.repository.UsersMapper">
+
+	<select id="usersSelectById" resultType="com.example.entity.Users">
+		select * from users where id = #{id};
+	</select>
+
 	<!-- ユーザー名から認証情報を取得 -->
-	<select id="SelectByUsername" resultType="com.example.entity.Users">
+	<select id="usersSelectByUsername" resultType="com.example.entity.Users">
 		select * from users where username = #{username};
 	</select>
+	
+	<insert id="usersInsert" parameterType="com.example.form.UsersForm">
+		insert into users(username,password) values(#{username},#{password});
+	</insert>
 </mapper>

@@ -16,5 +16,7 @@ create table unit(id serial primary key,
 				 luck int not null );
 
 create table users(
-				 username varchar(255) primary key not null,
-				 password varchar(255) not null )
+				 id serial primary key,
+				 username varchar(255) not null,
+				 password varchar(255) not null,
+				 authority varchar(25) default 'USER' );

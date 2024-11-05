@@ -1,23 +1,32 @@
-package com.example.config;
-
-import org.springframework.context.annotation.Configuration;
-
-import lombok.RequiredArgsConstructor;
-
-@Configuration
+//package com.example.config;
+//
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.context.annotation.Configuration;
+//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+//import org.springframework.security.core.userdetails.UserDetailsService;
+//import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.web.SecurityFilterChain;
+//
+//import lombok.RequiredArgsConstructor;
+//
+//@Configuration
 //@EnableWebSecurity
-@RequiredArgsConstructor
-public class SecurityConfig {
-	
+//@RequiredArgsConstructor
+//public class SecurityConfig {
+//	
+//	private final UserDetailsService userDetailsService;
+//	private final PasswordEncoder passwordEncoder;
+//	
 //	@Bean
 //	SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 //		http
 //			//httpリクエストに対するセキュリティ設定
 //			.authorizeHttpRequests(authz -> authz
 //			//「/login」へのアクセスは認証を必要としない
-//			.requestMatchers("/login").permitAll()
-//			//【管理者権限設定】url:/todos/**は管理者しかアクセスできない
-//			.requestMatchers("/todos/**").hasAuthority("ADMIN")
+//			.requestMatchers("/login","/h2-console").permitAll()
+//			//【管理者権限設定】url:/admin/**は管理者しかアクセスできない
+//			.requestMatchers("/admin/**").hasAuthority("ADMIN")
 //			//その他のリクエストは承認が必要
 //			.anyRequest().authenticated())
 //			//フォームベースのログイン設定
@@ -27,11 +36,11 @@ public class SecurityConfig {
 //			//ログイン処理のURLを指定
 //			.loginProcessingUrl("/authentication")
 //			//ユーザー名のname属性を指定
-//			.usernameParameter("usernameInput")
+//			.usernameParameter("username")
 //			//パスワードのname属性を指定
-//			.passwordParameter("passwordInput")
+//			.passwordParameter("password")
 //			//ログイン成功時のリダイレクト先を指定
-//			.defaultSuccessUrl("/")
+//			.defaultSuccessUrl("/title")
 //			//ログイン失敗時のリダイレクト先を指定
 //			.failureUrl("/login?error"))
 //			//ログアウト設定
@@ -47,5 +56,5 @@ public class SecurityConfig {
 //		);
 //		return http.build();
 //	}
-
-}
+//
+//}

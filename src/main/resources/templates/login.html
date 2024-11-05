@@ -13,12 +13,12 @@
 <body>
 	<h2>Please Login</h2>
 	<!-- ゲストアカウント -->
-	<form th:action="" method="get" th:object="">
-		<input type="hidden" th:field="*{guest}">
-		<input type="hidden" th:field="*{guestpass}">
+	<form th:action="@{/authentication}" method="post" th:object="${usersForm}">
+		<input type="hidden" th:field="*{username}">
+		<input type="hidden" th:field="*{password}">
 		<p>
-			ゲストアカウントは
-			<a th:href="/play/battle">こちら</a>
+			ゲストアカウントで
+			<button type="submit">ログイン</button>
 		</p>
 	</form>
 </body>
