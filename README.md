@@ -2,7 +2,7 @@
 開発言語:java html
 
 アプリ起動後、
-http://localhost:8080/title　
+http://localhost:8080/title
 とブラウザのURLに直接入力することで遊ぶことができる
 
 注意事項
