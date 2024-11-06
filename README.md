@@ -1,5 +1,5 @@
 シンプルな戦闘を繰り返す旧型のゲームのようなWebアプリ
-開発言語:java
+開発言語:java html
 
 アプリ起動後、
 http://localhost:8080/title　
