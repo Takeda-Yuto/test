@@ -1,6 +1,7 @@
 シンプルな戦闘を繰り返す旧型のゲームのようなWebアプリ
 開発言語:java html
 開発環境:eclipse
+使用データベース:h2database
 
 アプリ起動後、
 http://localhost:8080/title
