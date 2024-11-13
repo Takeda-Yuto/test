@@ -1,5 +1,5 @@
 # 昔のゲームのような戦闘を意識したWebアプリ
-##　制作に使用したもの
+## 制作に使用したもの
 + 開発言語: java html
 + 開発環境: eclipse
 + 使用データベース: h2database
@@ -8,6 +8,7 @@
 + [概要](#概要)
 + [画面説明](#画面説明)
 + [注意事項](#注意事項)
++ [クラス等説明](#クラス等説明)
 ## 概要
 これは、職業訓練のカリキュラムの一環で制作したものになります。
 
@@ -66,6 +67,96 @@ http://localhost:8080/title
 ## 注意事項
 ブラウザが持つ、前のページに戻る機能や再読み込み機能を使うことを想定しておらず、
 使うと正しく動作しないことがあるため、基本的には使わないようにお願いします。
+
+[見出しに戻る](#見出し)
+
+## クラス等説明
+ここでは簡易な説明のみさせていただきます。詳細はコードを直接ご確認ください。
+
+それぞれのパッケージやクラスなどで実装している内容を説明します。
+
+### src/main/javaフォルダ内
++ com.exampleパッケージ
+  + configパッケージ
+    セキュリティ、認証関係の処理を実装しようとして用意したパッケージ。このパッケージにあるクラスはすべて未実装のため動作に影響しません。
+  + controllerパッケージ
+    + BattleController.java
+      メインの処理を担当するコントローラー。
+    + LoginController.java
+      ログインのために用意したコントローラー。未実装のため正しく動きません。
+    + TitleController.java
+      タイトル画面を呼ぶだけのコントローラー。
+  + entityパッケージ
+    + BattleData.java
+      戦闘で使うデータを保持するエンティティ。
+    + LoginUser.java
+      未実装のログイン処理のためのエンティティ。一切動作に影響しません。
+    + Sp.java
+      ステータスアップに使うポイントを保持するエンティティ。
+    + Unit.java
+      データベースのUnitテーブルとつなげるためのエンティティ。
+    + Users.java
+      未実装の個人識別に用意したデータベースのUsersテーブルとつなげるためのエンティティ。今は何も動作に影響しません。
+  + formパッケージ
+    + UnitForm.java
+      キャラクターメイクやステータスアップの際に使われるフォーム。
+    + UsersForm.java
+      ログインのために用意したフォーム。未実装なので使用されません。
+  + processパッケージ
+    + BattleSystem.java
+      戦闘で起きる計算式などを実装したクラス。
+    + ResultSystem.java
+      使うかなと思って用意だけして何もしていないクラス。今後も出番がなければ削除予定。
+  + repositoryパッケージ
+    + UnitMapper.java
+      Mybatisを使用しており、データベースにてSQL文を実行するためのクラス。
+    + UsersMapper.java
+      未実装のため、何も使われてません。
+  + serviceパッケージ
+    + implパッケージ
+      + BattleServiceImpl.java
+        サービスインタフェースを実装したクラス。
+      + UserDetailServiceImpl.java
+        ログインのために実装したクラス。未実装のため動作しません。
+      + UsersServiceImpl.java
+        未実装のため、動作しません。
+    + BattleService.java
+      データベースを用いる処理のために用意したインタフェース。
+    + UsersService.java
+      未実装のため、動作しません。
+  + Application.java
+    アプリ起動に使うクラス。
+### src/main/resourceフォルダ内
++ com.example.repositoryパッケージ
+  + UnitMapper.xml
+    Unitテーブルに関するSQL文を実行するファイル。
+  + UsersMapper.xml
+    Usersテーブルに関するSQL文を実行するファイル。未実装のため、動くことはありません。
++ templatesパッケージ
+  + playパッケージ
+    + battle.html
+      戦闘画面を移すhtml。
+    + build.html
+      キャラクターメイク、ステータスアップを移すhtml。
+    + result.html
+       ステータスアップ完了を移すhtml。
+  + exam.html
+    フォント確認に使用したhtml。
+  + login.html
+    ログイン画面を移すhtml。未実装のため、使われません。
+  + title.html
+    タイトル画面を移すhtml。
++ staticフォルダ
+  + fontsフォルダ
+    使用したいフォントを格納するためのフォルダ。
+  + imagesフォルダ
+    戦闘で表示する敵画像を格納するためのフォルダ。
++ application.propertiesファイル
+  本アプリの設定を行うファイル。主にデータベースの設定をしている
++ data.sql
+  データベースのテーブルに初期データを入れるためのファイル。
++ schema.sql
+  データベースのテーブルの初期設定を行うファイル。
 
 [見出しに戻る](#見出し)
 
