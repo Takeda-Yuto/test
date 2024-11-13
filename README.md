@@ -13,7 +13,9 @@
 
 ## 画面説明
 ![スクリーンショット (12)](https://github.com/user-attachments/assets/8e462293-bec0-43d7-bd20-c8186bfa6eb0)
-アプリ起動後、ブラウザにこのURLを直接入力することから始まります。
+アプリ起動後、ブラウザに
+http://localhost:8080/title
+とURLを直接入力することから始まります。
 
 認証機能とセーブ機能の実装を予定しています。「初めから」以外がただのテキストなのはこれらが未実装なためです。
 ![スクリーンショット (13)](https://github.com/user-attachments/assets/c869d0fd-d0a7-49be-be8b-10f2dce1ab7e)
