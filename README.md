@@ -1,9 +1,10 @@
-シンプルな戦闘を繰り返す旧型のゲームのようなWebアプリ
-開発言語:java html
-開発環境:eclipse
-使用データベース:h2database
+# シンプルな戦闘を繰り返す旧型のゲームのようなWebアプリ
+### 開発言語:java html
+### 開発環境:eclipse
+### 使用データベース:h2database
 
-アプリ起動後、
+アプリ起動後、![スクリーンショット (10)](https://github.com/user-attachments/assets/5261b00f-4082-448e-aa24-f9f91cf0e250)
+
 http://localhost:8080/title
 とブラウザのURLに直接入力することで遊ぶことができる
 
